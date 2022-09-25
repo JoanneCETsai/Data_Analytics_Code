@@ -70,5 +70,5 @@ clusters_centroid <- cutree(hc.centroid,k=3)
 
 pairs(frame_no_outlier[ , c(1,2,3)],
       col = clusters_complete)
-# test123
+
 
