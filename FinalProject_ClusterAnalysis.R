@@ -72,3 +72,4 @@ pairs(frame_no_outlier[ , c(1,2,3)],
       col = clusters_complete)
 
 
+# part2
