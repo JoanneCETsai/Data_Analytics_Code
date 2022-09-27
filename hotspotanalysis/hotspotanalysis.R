@@ -1,14 +1,23 @@
 #Load the packages you’ll use:
-library(spdep) # This package contains the functions to calculate the Getis-Ord statistic. 
+install.packages("sf")
+install.packages("spdep")
+install.packages("sp")
+installed.packages("spData")
+library("spData")
+library("sp")
+library("sf")
+library("spdep") # This package contains the functions to calculate the Getis-Ord statistic. 
 #### They are localG(), dnearneigh(), and nb2list().
-library(ggplot2) # This package has functions to make good map images
+library("ggplot2") # This package has functions to make good map images
 
-NY_shp<-st_read("Counties.shp") # This loads a county map of New York state, in shape file format.
+NY_shp<-st_read("/Users/chiaentsai/Desktop/Data_Analytics/Data_Analytics_Code/hotspotanalysis/Counties.shp") 
+# This loads a county map of New York state, in shape file format.
 
-ggplot()+
-  geom_sf(data=NY_shp, size=1, color="black", fill="white")
+ggplot()+geom_sf(data=NY_shp, size=1, color="black", fill="white")
 
-NCoro<-read.csv("NY_virusApril12020.csv") # This loads a .csv file of Coronavirus reported incidences per 10,000 as of April 1, 2020 by on the county name.
+
+NCoro<-read.csv("/Users/chiaentsai/Desktop/Data_Analytics/Data_Analytics_Code/hotspotanalysis/NY_virusApril12020.csv") 
+# This loads a .csv file of Coronavirus reported incidences per 10,000 as of April 1, 2020 by on the county name.
 
 joined<-merge(NY_shp, NCoro, by.x="NAME", by.y="NAME") #This joins the Coronavirus dataset with the NY county shape file. 
 
@@ -22,7 +31,10 @@ coords<-st_coordinates(centroidscounties) #convert the centroids to map coordina
 
 plot(coords) #UTM Zone 18, plots the centroid of each county
 
-Neigh<-dnearneigh(coords, 0, 90000) # identifies, for each county, the number of neighboring counties, where a county is considered a neighbor if the centroids are within about 90 miles, note that the argument 90000 roughly corresponds to 90 mi, and you could change this distance. 
+Neigh<-dnearneigh(coords, 0, 90000) 
+# identifies, for each county, the number of neighboring counties, where a county is considered a neighbor if the centroids are within about 90 miles, 
+#note that the argument 90000 roughly corresponds to 90 mi, 
+#and you could change this distance. 
 
 plot.nb(Neigh, coords) # Plots coordinates with their connections to nearest neighbors. 
 
