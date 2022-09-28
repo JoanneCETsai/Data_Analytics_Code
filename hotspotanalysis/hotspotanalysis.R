@@ -23,14 +23,14 @@ joined<-merge(NY_shp, NCoro, by.x="NAME", by.y="NAME") #This joins the Coronavir
 
 ggplot()+
   geom_sf(data=joined, size=1, color="black", fill="white")+
-  geom_sf(data=joined, aes(fill=joined$CASESPER10000))# Creates a heatmap of Coronavirus cases by county. 
+  geom_sf(data=joined, aes(fill=joined$Population))# Creates a heatmap of Coronavirus cases by county. 
 
 centroidscounties<-st_centroid(st_geometry(joined)) # Computes a centroid (the geographical center) for each county;
 
 
 plot(coords) #UTM Zone 18, plots the centroid of each county
 coords
-Neigh<-dnearneigh(coords, 0, 90000) 
+Neigh<-dnearneigh(coords, 0, 100000) 
 # identifies, for each county, the number of neighboring counties, where a county is considered a neighbor if the centroids are within about 90 miles, 
 #note that the argument 90000 roughly corresponds to 90 mi, 
 #and you could change this distance. 
@@ -40,7 +40,7 @@ plot.nb(Neigh, coords) # Plots coordinates with their connections to nearest nei
 print(Neigh) #Print a summary of the Neigh data
 card(Neigh) #List the number of neighbors each region has
 
-ConCase<-localG(joined$CASESPER10000, zero.policy=NULL, nb2listw(Neigh, style="W")) 
+ConCase<-localG(joined$Population, zero.policy=NULL, nb2listw(Neigh, style="W")) 
 # The localG function returns the Getis-Ord statistics as z-scores. 
 # Within this function, the nb2listw function associates a weight with each pair of counties that meet the threshold to be a neighbor using the function nb2listw(Neigh, style="W"). 
 # In this example, Neigh stores which counties are considered neighbors based on the approximately 90-mile threshold. 
@@ -72,7 +72,9 @@ ggplot()+
 
 Neigh<-poly2nb(joined)
 
-
+plot.nb(Neigh, coords)
+card(Neigh)
+print(Neigh)
 
 ConCase<-localG(joined$CASESPER10000, zero.policy=NULL, nb2listw(Neigh, style="W"))
 print(ConCase)
