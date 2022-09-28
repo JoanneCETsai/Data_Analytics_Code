@@ -15,7 +15,6 @@ NY_shp<-st_read("/Users/chiaentsai/Desktop/Data_Analytics/Data_Analytics_Code/ho
 
 ggplot()+geom_sf(data=NY_shp, size=1, color="black", fill="white")
 
-
 NCoro<-read.csv("/Users/chiaentsai/Desktop/Data_Analytics/Data_Analytics_Code/hotspotanalysis/NY_virusApril12020.csv") 
 # This loads a .csv file of Coronavirus reported incidences per 10,000 as of April 1, 2020 by on the county name.
 
@@ -30,7 +29,7 @@ centroidscounties<-st_centroid(st_geometry(joined)) # Computes a centroid (the g
 
 plot(coords) #UTM Zone 18, plots the centroid of each county
 coords
-Neigh<-dnearneigh(coords, 0, 100000) 
+Neigh<-dnearneigh(coords, 0, 90000) 
 # identifies, for each county, the number of neighboring counties, where a county is considered a neighbor if the centroids are within about 90 miles, 
 #note that the argument 90000 roughly corresponds to 90 mi, 
 #and you could change this distance. 
