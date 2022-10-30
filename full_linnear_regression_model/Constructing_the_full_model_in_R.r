@@ -1,5 +1,5 @@
 #multiple regression
-frame<-read.csv("LifeExpPlus.csv", row.names = 1) #Load the Life Expectancy Data Set
+frame<-read.csv("/Users/chiaentsai/Desktop/Data_Analytics/Data_Analytics_Code/full_linnear_regression_model/LifeExpPlus.csv", row.names = 1) #Load the Life Expectancy Data Set
 head(frame) #Examine the Life Expectancy Data Set
 cor(frame, method="pearson") #Look at the correlation matrix for all variables in this data set
 plot(x=frame$GDP.per.capita, y=frame$AvgLifeExp) # Plot the GDP/Capita and Avg life expectancy. Note that we’ve called these columns of data from our dataframe with the notation dataset$ColumnName. 
