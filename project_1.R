@@ -1,4 +1,5 @@
-install.packages("fastDummies")
+install.packages("carData")
+install.packages("ggcorrplot")
 library(dplyr)
 library(tibble)
 library(tree)
@@ -8,6 +9,9 @@ library(DAAG)
 library(ggplot2)
 library(MASS)
 library(factoextra)
+library(carData)
+library(car)
+library(ggcorrplot)
 
 # load the carseats data
 carseats <- as_tibble(Carseats)
@@ -25,11 +29,19 @@ summary(carseats)
 # create dummy variables for categorical variables
 carseats$Urban<-ifelse(carseats$Urban=="Yes",1,0) 
 carseats$US<-ifelse(carseats$US=="Yes",1,0) 
-
+carseats
 
 frame <- dummy_cols(carseats, select_columns = "ShelveLoc")
 frame <- subset(frame, select = -c(ShelveLoc) )
 frame
+
+# check multicolinearity
+# remove ShelveLoc_Medium cause it is highly correlated with ShelveLoc_Good
+corr <- cor(frame)
+ggcorrplot(corr)
+vif(lm(Sales ~ CompPrice + Income + Advertising + Population+Price+Age+Education
+       + Urban + US + ShelveLoc_Bad + ShelveLoc_Good, data=frame))
+
 
 # linear regression
 model_linear<-lm(Sales ~., data=frame)
