@@ -1,5 +1,5 @@
 #k-fold validation full model without education spending
-frame<-read.csv("LifeExpPlus.csv", row.names = 1)
+frame<-read.csv("/Users/chiaentsai/Desktop/Data_Analytics/Data_Analytics_Code/kfold_validation/LifeExpPlus.csv", row.names = 1)
 povinc<-frame$Inequity*frame$PovertyRate
 frame$povinc=povinc
 
