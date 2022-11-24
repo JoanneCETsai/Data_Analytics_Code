@@ -1,7 +1,7 @@
 #ordered logistic regression
 library(rms)
 
-frame<-read.csv("LoadData3Groups.csv")
+frame<-read.csv("/Users/chiaentsai/Desktop/Data_Analytics/Data_Analytics_Code/ordered_logit/LoadData3Groups.csv")
 head(frame)
 
 ologit<-lrm(Group~Credit.Borrows.Score+Debt.to.Income, data=frame)
