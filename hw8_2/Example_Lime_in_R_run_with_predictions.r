@@ -1,0 +1,10 @@
+predict_data_for_lime<-as.h2o(data_for_lime)
+predictionsforlime<-h2o.predict(dl_Aquisition, predict_data_for_lime)
+print(predictionsforlime)
+
+explainer_accept <- lime(data_for_lime, dl_Aquisition)
+explanation <- explain(data_for_lime, explainer_accept, n_labels = 2, n_features = 4)
+print(data_for_lime)
+plot_features(explanation, ncol=3)
+plot_explanations(explanation)
+print(explanation)
